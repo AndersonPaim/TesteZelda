@@ -12,6 +12,7 @@ namespace _Project.Scripts.System
         {
             _inputManager.OnStart();
             _player.OnStart();
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void Update()
