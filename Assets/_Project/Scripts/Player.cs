@@ -19,12 +19,21 @@ namespace _Project.Scripts
         
         public void Move(Vector2 moveDirection)
         {
-            moveDirection *= 8; //TODO GET PLAYER SPEED
-            Vector3 rightDirection = transform.right;
-            Vector3 playerDirection = new Vector3(-rightDirection.z, 0, rightDirection.x);
-            Vector3 movementDirection = (playerDirection * moveDirection.y + rightDirection * moveDirection.x);
-            movementDirection.y = _rb.velocity.y;
-            _rb.velocity = movementDirection;
+            float turnVelocity = 15;
+            
+            Vector3 direction = new Vector3(moveDirection.x, _rb.velocity.y, moveDirection.y).normalized;
+            
+            if (direction.magnitude >= 0.1f)
+            {
+                float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.y) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
+                targetAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnVelocity, 0.03f);
+                transform.rotation = Quaternion.Euler(0, targetAngle, 0);
+                
+                direction = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
+                direction *= 3; //TODO GET PLAYER SPEED
+                direction.y = _rb.velocity.y;
+                _rb.velocity = direction;
+            }
         }
         
         public void Jump()
