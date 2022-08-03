@@ -1,12 +1,18 @@
+using _Project.Scripts.ScriptableObjects;
 using UnityEngine;
 
 namespace _Project.Scripts
 {
     public class Player : MonoBehaviour
     {
-        private Rigidbody _rb;
-        private bool _isGrounded = true;
+        [SerializeField] private Animator _animator;
+        [SerializeField] private PlayerBalancer _playerBalancer;
         
+        private Rigidbody _rb;
+        private CapsuleCollider _collider;
+        private bool _isGrounded = true;
+        private float _moveSpeed;
+
         public void OnStart()
         {
             Initialize();
@@ -19,29 +25,50 @@ namespace _Project.Scripts
         
         public void Move(Vector2 moveDirection)
         {
-            float turnVelocity = 15;
-            
             Vector3 direction = new Vector3(moveDirection.x, _rb.velocity.y, moveDirection.y).normalized;
-            
-            if (direction.magnitude >= 0.1f)
+
+            if (direction.magnitude < 0.1f)
             {
-                float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.y) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
-                targetAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnVelocity, 0.03f);
-                transform.rotation = Quaternion.Euler(0, targetAngle, 0);
-                
-                direction = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
-                direction *= 3; //TODO GET PLAYER SPEED
-                direction.y = _rb.velocity.y;
-                _rb.velocity = direction;
+                _animator.SetBool("IsMoving", false);
+                return;
             }
+            
+            _animator.SetBool("IsMoving", true);
+            float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.y) * Mathf.Rad2Deg + Camera.main!.transform.eulerAngles.y;
+            targetAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _playerBalancer.TurnVelocity, 0.05f);
+            transform.rotation = Quaternion.Euler(0, targetAngle, 0);
+                
+            direction = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
+            direction *= _moveSpeed;
+            direction.y = _rb.velocity.y;
+            _rb.velocity = direction;
         }
         
         public void Jump()
         {
             if (_isGrounded)
             {
-                _rb.AddForce(Vector3.up * 5, ForceMode.Impulse);
+                _animator.SetTrigger("Jump");
+                _rb.AddForce(Vector3.up * _playerBalancer.JumpForce, ForceMode.Impulse);
             }
+        }
+        
+        public void Crouch(bool isCrouching)
+        {
+            if (isCrouching)
+            {
+                _moveSpeed = _playerBalancer.CrouchMoveSpeed;
+                _collider.center = new Vector3(0, -0.25f, 0);
+                _collider.height = 1.5f;
+            }
+            else
+            {
+                _moveSpeed = _playerBalancer.MoveSpeed;
+                _collider.center = Vector3.zero;
+                _collider.height = 2f;
+            }
+            
+            _animator.SetBool("IsCrouching", isCrouching);
         }
         
         public void Interact()
@@ -51,12 +78,15 @@ namespace _Project.Scripts
 
         private void Initialize()
         {
+            _collider = GetComponent<CapsuleCollider>();
             _rb = GetComponent<Rigidbody>();
+            _moveSpeed = _playerBalancer.MoveSpeed;
         }
         
         private void GroundCheck()
         {
             _isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.3f);
+            _animator.SetBool("IsGrounded", _isGrounded);
         }
     }
 }

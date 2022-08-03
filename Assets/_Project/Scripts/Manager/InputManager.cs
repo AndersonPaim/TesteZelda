@@ -24,9 +24,8 @@ namespace _Project.Scripts.Manager
             _input = new PlayerInputActions();
             _input.Player.Jump.performed += _ => Jump();
             _input.Player.Interact.performed += _ => Interact();
-            /*_input.Player.LookX.performed += _ => LookX();
-            _input.Player.LookY.performed += _ => LookY();
-            _input.UI.Pause.performed += _ => Pause();*/
+            _input.Player.Crouch.performed += _ => Crourch(true);
+            _input.Player.Crouch.canceled += _ => Crourch(false);
         }
         
         private void Movement()
@@ -42,6 +41,11 @@ namespace _Project.Scripts.Manager
         private void Interact()
         {
             _player.Interact();
+        }
+        
+        private void Crourch(bool isCrouching)
+        {
+            _player.Crouch(isCrouching);
         }
     }
 }
