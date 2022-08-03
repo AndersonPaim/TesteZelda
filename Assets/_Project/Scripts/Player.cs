@@ -25,10 +25,11 @@ namespace _Project.Scripts
         
         public void Move(Vector2 moveDirection)
         {
-            Vector3 direction = new Vector3(moveDirection.x, _rb.velocity.y, moveDirection.y).normalized;
+            Vector3 direction = new Vector3(moveDirection.x, 0, moveDirection.y).normalized;
 
             if (direction.magnitude < 0.1f)
             {
+                _rb.velocity = new Vector3(0, _rb.velocity.y, 0);
                 _animator.SetBool("IsMoving", false);
                 return;
             }

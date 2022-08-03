@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 6
   CrouchMoveSpeed: 3
-  JumpForce: 8
-  TurnVelocity: 0.0014579904
+  JumpForce: 7
+  TurnVelocity: -20.87608
