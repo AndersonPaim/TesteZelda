@@ -59,8 +59,8 @@ namespace _Project.Scripts
             if (isCrouching)
             {
                 _moveSpeed = _playerBalancer.CrouchMoveSpeed;
-                _collider.center = new Vector3(0, -0.25f, 0);
-                _collider.height = 1.5f;
+                _collider.center = new Vector3(0, -0.4f, 0);
+                _collider.height = 1.2f;
             }
             else
             {
