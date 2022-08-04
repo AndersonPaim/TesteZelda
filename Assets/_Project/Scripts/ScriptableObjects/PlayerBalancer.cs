@@ -7,6 +7,7 @@ namespace _Project.Scripts.ScriptableObjects
     {
         public float MoveSpeed;
         public float CrouchMoveSpeed;
+        public float GrabMoveSpeed;
         public float JumpForce;
         public float TurnVelocity;
     }

@@ -51,7 +51,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Interact",
+                    "name": "Grab",
                     "type": "Button",
                     "id": "a35ff681-3183-41fc-8f83-51171132aa54",
                     "expectedControlType": "Button",
@@ -176,7 +176,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Interact",
+                    "action": "Grab",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

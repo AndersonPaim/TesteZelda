@@ -1,3 +1,6 @@
+using _Project.Scripts.Events;
+using Coimbra.Services;
+using Coimbra.Services.Events;
 using UnityEngine;
 
 namespace _Project.Scripts.Manager
@@ -7,11 +10,13 @@ namespace _Project.Scripts.Manager
         [SerializeField] private Player _player;
         
         private PlayerInputActions _input;
+        private IEventService _eventService;
         
         public void OnStart()
         {
             SetupEvents();
             _input.Enable();
+            _eventService = ServiceLocator.Get<IEventService>();
         }
 
         public void OnUpdate()
@@ -23,7 +28,7 @@ namespace _Project.Scripts.Manager
         {
             _input = new PlayerInputActions();
             _input.Player.Jump.performed += _ => Jump();
-            _input.Player.Interact.performed += _ => Interact();
+            _input.Player.Grab.performed += _ => Grab();
             _input.Player.Crouch.performed += _ => Crourch(true);
             _input.Player.Crouch.canceled += _ => Crourch(false);
         }
@@ -38,9 +43,10 @@ namespace _Project.Scripts.Manager
             _player.Jump();
         }
 
-        private void Interact()
+        private void Grab()
         {
-            _player.Interact();
+            OnGrab grab = new OnGrab();
+            grab?.Invoke(_eventService);
         }
         
         private void Crourch(bool isCrouching)
