@@ -15,4 +15,4 @@ MonoBehaviour:
   MoveSpeed: 6
   CrouchMoveSpeed: 3
   JumpForce: 7
-  TurnVelocity: -20.87608
+  TurnVelocity: 15
