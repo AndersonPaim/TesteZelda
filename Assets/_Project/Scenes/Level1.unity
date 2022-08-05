@@ -16516,7 +16516,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 239737416}
-  m_LocalRotation: {x: -0.0000000017913538, y: 0.99456584, z: -0.104109846, w: -0.000000017112878}
+  m_LocalRotation: {x: 0.000000001791354, y: 0.99456584, z: -0.104109846, w: 0.00000001711288}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -16701,7 +16701,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: -0.0000000017898927, y: 0.99456584, z: -0.104109846, w: -0.000000017126846}
+  m_LocalRotation: {x: 0.0000000017898424, y: 0.99456584, z: -0.104109846, w: 0.000000017126842}
   m_LocalPosition: {x: -3.669075, y: 9.424599, z: 23.983997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -17382,7 +17382,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 653717338}
-  m_LocalRotation: {x: -0.0000000021023319, y: 0.9925076, z: -0.12218327, w: -0.000000017077465}
+  m_LocalRotation: {x: 0.0000000021023316, y: 0.9925076, z: -0.12218327, w: 0.000000017077463}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -17516,6 +17516,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 1257889455}
   _playerBalancer: {fileID: 11400000, guid: ded0f4dadf9157944932da1742357f2f, type: 2}
+  _walkDirection: {fileID: 330585546}
 --- !u!1 &725504804
 GameObject:
   m_ObjectHideFlags: 0
@@ -19372,7 +19373,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1062746977}
-  m_LocalRotation: {x: -0.0000000015261741, y: 0.99629086, z: -0.08604983, w: -0.000000017670148}
+  m_LocalRotation: {x: -0.0000000015052366, y: 0.99629086, z: -0.08604983, w: -0.000000017427734}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

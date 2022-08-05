@@ -7,6 +7,7 @@ namespace _Project.Scripts
     {
         [SerializeField] private Animator _animator;
         [SerializeField] private PlayerBalancer _playerBalancer;
+        [SerializeField] private Transform _walkDirection;
         
         private Rigidbody _rb;
         private CapsuleCollider _collider;
@@ -98,7 +99,7 @@ namespace _Project.Scripts
             }
             
             _animator.SetBool("IsMoving", true);
-            float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.y) * Mathf.Rad2Deg + Camera.main!.transform.eulerAngles.y;
+            float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.y) * Mathf.Rad2Deg + _walkDirection.eulerAngles.y;
             targetAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _playerBalancer.TurnVelocity, 0.05f);
             transform.rotation = Quaternion.Euler(0, targetAngle, 0);
                 
