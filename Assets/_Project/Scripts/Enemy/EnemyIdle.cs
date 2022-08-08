@@ -18,9 +18,9 @@ namespace _Project.Scripts.Enemy
 		protected override void Enter()
 		{
 			Agent.speed = Balancer.WalkSpeed;
-			Anim.SetTrigger("Idle");
 			ExitIdleASync();
 			base.Enter();
+			Anim.SetTrigger("Idle");
 		}
 
 		protected override void Update()

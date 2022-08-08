@@ -20,8 +20,7 @@ namespace _Project.Scripts.Enemy
         protected override void Enter()
         {
             Agent.speed = Balancer.WalkSpeed;
-            Anim.SetTrigger("Walk");
-            Debug.Log("MOVE");
+            Anim.SetBool("IsWalking", true);
             base.Enter();
         }
 
@@ -35,6 +34,12 @@ namespace _Project.Scripts.Enemy
             { 
                 OnCancel?.Invoke();
             }
+        }
+
+        protected override void Exit()
+        {
+            base.Exit();
+            Anim.SetBool("IsWalking", false);
         }
 
         private void Move()

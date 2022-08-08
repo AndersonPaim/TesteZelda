@@ -17,6 +17,7 @@ namespace _Project.Scripts.Enemy
 
 		protected override void Enter()
 		{
+			Agent.isStopped = true;
 			Anim.SetTrigger("Alerted");
 			_eventService = ServiceLocator.Get<IEventService>();
 			OnAlertEnemy alertEnemy = new OnAlertEnemy();
