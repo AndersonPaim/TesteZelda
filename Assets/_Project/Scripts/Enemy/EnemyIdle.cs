@@ -8,6 +8,7 @@ namespace _Project.Scripts.Enemy
 	public class EnemyIdle : StateMachine
 	{
 		public Action OnExit;
+		public Action OnCancel;
 
 		public EnemyIdle(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, EnemyBalancer balancer)
 			: base(enemy, player, agent, anim, balancer)
@@ -25,7 +26,11 @@ namespace _Project.Scripts.Enemy
 		protected override void Update()
 		{
 			base.Update();
-			//TODO LOOK FOR PLAYER
+
+			if (CanSeePlayer())
+			{ 
+				OnCancel?.Invoke();
+			}
 		}
 
 		private async UniTask ExitIdleASync()

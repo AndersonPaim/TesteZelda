@@ -7,5 +7,6 @@ namespace _Project.Scripts.Enemy
     {
         public float WalkSpeed;
         public float IdleTime;
+        public float ViewDistance;
     }
 }

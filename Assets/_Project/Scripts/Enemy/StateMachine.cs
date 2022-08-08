@@ -13,6 +13,25 @@ namespace _Project.Scripts.Enemy
         protected Animator Anim;
         protected EnemyBalancer Balancer;
 
+        public StateMachine Process()
+        {
+            if (Stage == Events.ENTER)
+            {
+                Enter();
+            }
+            if (Stage == Events.UPDATE)
+            {
+                Update();
+            }
+            if (Stage == Events.EXIT)
+            {
+                Exit();
+                return StateMachineNextState;
+            }
+
+            return this;
+        }
+
         protected StateMachine(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, EnemyBalancer balancer)
         {
             Stage = Events.ENTER;
@@ -38,23 +57,24 @@ namespace _Project.Scripts.Enemy
             Stage = Events.EXIT;
         }
 
-        public StateMachine Process()
+        protected bool CanSeePlayer()
         {
-            if(Stage == Events.ENTER)
+            Vector3 position = Enemy.transform.position;
+            
+            if (Vector3.Distance(position, Player.transform.position) < Balancer.ViewDistance)
             {
-                Enter();
-            }
-            if(Stage == Events.UPDATE)
-            {
-                Update();
-            }
-            if(Stage == Events.EXIT)
-            {
-                Exit();
-                return StateMachineNextState;
-            }
+                if (Physics.Raycast(Enemy.transform.position, (Player.transform.position - position), out RaycastHit hit, Balancer.ViewDistance))
+                {
+                    Debug.DrawRay(position, (Player.transform.position - position), Color.blue);
+                    Player player = hit.collider.gameObject.GetComponent<Player>();
 
-            return this;
+                    return player != null;
+                }
+            }
+            
+            return false;
         }
     }
 }
+
+

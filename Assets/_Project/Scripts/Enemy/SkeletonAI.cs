@@ -20,6 +20,7 @@ namespace _Project.Scripts.Enemy
         {
             EnemyMoving movingState = new EnemyMoving(gameObject, Player, Agent, Anim, EnemyBalancer, GetNextWaypoint());
             movingState.OnExit += IdleState;
+            movingState.OnCancel += AlertedState;
             ChangeState(movingState);
         }
 
@@ -27,7 +28,14 @@ namespace _Project.Scripts.Enemy
         {
             EnemyIdle idleState = new EnemyIdle(gameObject, Player, Agent, Anim, EnemyBalancer);
             idleState.OnExit += MovingState;
+            idleState.OnCancel += AlertedState;
             ChangeState(idleState);
+        }
+        
+        private void AlertedState()
+        {
+            EnemyAlerted alertedState = new EnemyAlerted(gameObject, Player, Agent, Anim, EnemyBalancer);
+            ChangeState(alertedState);
         }
         
         private void ChangeState(StateMachine state)

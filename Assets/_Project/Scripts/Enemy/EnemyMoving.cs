@@ -7,6 +7,8 @@ namespace _Project.Scripts.Enemy
     public class EnemyMoving : StateMachine
     {
         public Action OnExit;
+        public Action OnCancel;
+        
         private Transform _targetPos;
 
         public EnemyMoving(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, EnemyBalancer balancer, Transform targetPos)
@@ -19,14 +21,20 @@ namespace _Project.Scripts.Enemy
         {
             Agent.speed = Balancer.WalkSpeed;
             Anim.SetTrigger("Walk");
+            Debug.Log("MOVE");
             base.Enter();
         }
 
         protected override void Update()
         {
             base.Update();
-            //TODO LOOK FOR PLAYER
+            
             Move();
+            
+            if (CanSeePlayer())
+            { 
+                OnCancel?.Invoke();
+            }
         }
 
         private void Move()
