@@ -12,13 +12,13 @@ namespace _Project.Scripts.Enemy
         protected NavMeshAgent Agent;
         protected Animator Anim;
         protected StateMachine CurrentState;
-        
-        private void Awake()
+
+        public void OnAwake()
         {
             Initialize();
         }
 
-        private void Update()
+        public void OnUpdate()
         {
             CurrentState = CurrentState.Process();
         }

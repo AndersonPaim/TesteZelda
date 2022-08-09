@@ -23,12 +23,12 @@ namespace _Project.Scripts
         private CinemachineTrackedDolly _trackedDolly;
         private CinemachineVirtualCamera _currentCam;
 
-        private void Start()
+        public void OnStart()
         {
             Initialize();
         }
 
-        private void Update()
+        public void OnUpdate()
         {
             FollowTarget();
             FindClosestCamera();
