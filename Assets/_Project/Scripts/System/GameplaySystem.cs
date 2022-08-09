@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using _Project.Scripts.Manager;
 using UnityEngine;
@@ -32,14 +31,6 @@ namespace _Project.Scripts.System
             foreach (Crate crate in _crates)
             {
                 crate.OnUpdate();
-            }
-        }
-
-        private void OnDestroy()
-        {
-            foreach (Crate crate in _crates)
-            {
-                crate.Destroy();
             }
         }
     }

@@ -20,21 +20,11 @@ namespace _Project.Scripts
             GroundCheck();
         }
 
-        public void Destroy()
-        {
-            DestroyEvents();
-        }
-
         private void SetupEvents()
         {
             OnGrab.AddListener(Grab);
         }
-
-        private void DestroyEvents()
-        {
-            OnGrab.RemoveAllListeners();
-        }
-
+        
         private void GroundCheck()
         {
             bool isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.3f);

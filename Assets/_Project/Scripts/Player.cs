@@ -1,4 +1,7 @@
+using _Project.Scripts.Events;
 using _Project.Scripts.ScriptableObjects;
+using Coimbra.Services;
+using Coimbra.Services.Events;
 using UnityEngine;
 
 namespace _Project.Scripts
@@ -10,7 +13,9 @@ namespace _Project.Scripts
         [SerializeField] private Transform _walkDirection;
         
         private Rigidbody _rb;
+        private PlayerState _playerState = PlayerState.NONE;
         private CapsuleCollider _collider;
+        private IEventService _eventService;
         private bool _isGrounded = true;
         private bool _isGrabbing = false;
         private float _moveSpeed;
@@ -48,14 +53,16 @@ namespace _Project.Scripts
         
         public void Crouch(bool isCrouching)
         {
-            if (isCrouching)
+            if (isCrouching && !_isGrabbing)
             {
+                ChangePlayerState(PlayerState.CROUCH);
                 _moveSpeed = _playerBalancer.CrouchMoveSpeed;
                 _collider.center = new Vector3(0, -0.4f, 0);
                 _collider.height = 1.2f;
             }
             else
             {
+                ChangePlayerState(PlayerState.NONE);
                 _moveSpeed = _playerBalancer.MoveSpeed;
                 _collider.center = Vector3.zero;
                 _collider.height = 2f;
@@ -66,6 +73,7 @@ namespace _Project.Scripts
         
         public void StartGrabbing()
         {
+            ChangePlayerState(PlayerState.GRAB);
             _rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
             _moveSpeed = _playerBalancer.GrabMoveSpeed;
             _isGrabbing = true;
@@ -74,6 +82,7 @@ namespace _Project.Scripts
         
         public void StopGrabbing()
         {
+            ChangePlayerState(PlayerState.NONE);
             _rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
             _moveSpeed = _playerBalancer.MoveSpeed;
             _isGrabbing = false;
@@ -82,6 +91,7 @@ namespace _Project.Scripts
 
         private void Initialize()
         {
+            _eventService = ServiceLocator.Get<IEventService>();
             _collider = GetComponent<CapsuleCollider>();
             _rb = GetComponent<Rigidbody>();
             _moveSpeed = _playerBalancer.MoveSpeed;
@@ -125,6 +135,13 @@ namespace _Project.Scripts
         {
             _isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.3f);
             _animator.SetBool("IsGrounded", _isGrounded);
+        }
+
+        private void ChangePlayerState(PlayerState state)
+        {
+            _playerState = state;
+            OnChangePlayerState changePlayerState = new OnChangePlayerState() { State = state };
+            changePlayerState?.Invoke(_eventService);
         }
     }
 }
