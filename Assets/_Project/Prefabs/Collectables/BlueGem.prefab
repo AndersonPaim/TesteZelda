@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 7901001903148770859}
   - component: {fileID: 7917037832841864961}
   - component: {fileID: 7924783658620035843}
+  - component: {fileID: 2592949622896482967}
   - component: {fileID: 2412941237943768255}
+  - component: {fileID: 5779080437018183937}
   m_Layer: 0
   m_Name: BlueGem
   m_TagString: Untagged
@@ -84,6 +86,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2592949622896482967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7901643758158444993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53cd56c8f3da7414da424a69abd01b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _coinsAmount: 2
+  _destroyDelay: 0.25
 --- !u!95 &2412941237943768255
 Animator:
   serializedVersion: 4
@@ -104,3 +120,16 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &5779080437018183937
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7901643758158444993}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6415828, y: 0.6501371, z: 0.9600002}
+  m_Center: {x: 0, y: -0.000000014901165, z: 0.00000023841858}

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using _Project.Scripts.Enemy;
+﻿using _Project.Scripts.Manager;
 using UnityEngine;
 
 namespace _Project.Scripts.System
@@ -7,31 +6,26 @@ namespace _Project.Scripts.System
 	public class Level2GameplaySystem : GameplaySystemBase
 	{
 		[SerializeField] private CameraManager _cameraManager;
-		[SerializeField] private List<SkeletonAI> _enemies = new List<SkeletonAI>();
+		[SerializeField] private EnemiesManager _enemiesManager;
+		[SerializeField] private CollectablesManager _collectablesManager;
 
 		private void Awake()
 		{
-			foreach (SkeletonAI enemy in _enemies)
-			{
-				enemy.OnAwake();
-			}
+			_enemiesManager.OnAwake();
 		}
         
 		protected override void Start()
 		{
 			base.Start();
 			_cameraManager.OnStart();
+			_collectablesManager.OnStart();
 		}
 
 		protected override void Update()
 		{         
 			base.Update();
 			_cameraManager.OnUpdate();
-			
-			foreach (SkeletonAI enemy in _enemies)
-	            {
-            		enemy.OnUpdate();
-	            }
+			_enemiesManager.OnUpdate();
 		}
 	}
 }

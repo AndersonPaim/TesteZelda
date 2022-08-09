@@ -1,5 +1,6 @@
 using _Project.Scripts.Events;
 using Coimbra.Services.Events;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace _Project.Scripts
@@ -35,6 +36,10 @@ namespace _Project.Scripts
                 rb = gameObject.AddComponent<Rigidbody>();
                 rb.freezeRotation = true;
                 rb.drag = 5;
+            }
+            else if (isGrounded && rb != null)
+            {
+                Destroy(rb);
             }
         }
 

@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2592949622896482967, guid: 1031177d09e8e5a48a5f6a4bd121c2e1,
+        type: 3}
+      propertyPath: _coinsAmount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7901001903148770859, guid: 1031177d09e8e5a48a5f6a4bd121c2e1,
         type: 3}
       propertyPath: m_RootOrder
@@ -65,7 +70,7 @@ PrefabInstance:
     - target: {fileID: 7901643758158444993, guid: 1031177d09e8e5a48a5f6a4bd121c2e1,
         type: 3}
       propertyPath: m_Name
-      value: GreenGem
+      value: GreenGem Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7924783658620035843, guid: 1031177d09e8e5a48a5f6a4bd121c2e1,
         type: 3}
