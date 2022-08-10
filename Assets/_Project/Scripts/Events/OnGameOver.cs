@@ -2,8 +2,7 @@
 
 namespace _Project.Scripts.Events
 {
-	public sealed partial class OnUpdateScore : IEvent
+	public sealed partial class OnGameOver : IEvent
 	{
-		public int Score;
 	}
 }

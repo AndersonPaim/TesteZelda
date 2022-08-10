@@ -1,3 +1,4 @@
+using System;
 using _Project.Scripts.Events;
 using Coimbra.Services;
 using Coimbra.Services.Events;
@@ -23,7 +24,7 @@ namespace _Project.Scripts.Manager
         {
             Movement();
         }
-        
+
         private void SetupEvents()
         {
             _input = new PlayerInputActions();
@@ -32,7 +33,7 @@ namespace _Project.Scripts.Manager
             _input.Player.Crouch.performed += _ => Crourch(true);
             _input.Player.Crouch.canceled += _ => Crourch(false);
         }
-        
+
         private void Movement()
         {
             _player.Move(_input.Player.Movement.ReadValue<Vector2>());

@@ -9,23 +9,18 @@ namespace _Project.Scripts.Manager
 {
 	public class ScoreManager : MonoBehaviour
 	{
-		private IEventService _eventService;
+		public Action<int> OnUpdateScore;
+		
 		private int _score = 0;
 
 		public void OnStart()
 		{
-			Initialize();
 			SetupEvents();
 		}
 
 		public void OnDestroy()
 		{
 			DestroyEvents();
-		}
-
-		private void Initialize()
-		{
-			_eventService = ServiceLocator.Get<IEventService>();
 		}
 
 		private void SetupEvents()
@@ -41,8 +36,7 @@ namespace _Project.Scripts.Manager
 		private void AddScore(ref EventContext context, in OnCollectGem e)
 		{
 			_score += e.Score;
-			OnUpdateScore updateScore = new OnUpdateScore() { Score = _score };
-			updateScore?.Invoke(_eventService);
+			OnUpdateScore?.Invoke(_score);
 		}
 	}
 }

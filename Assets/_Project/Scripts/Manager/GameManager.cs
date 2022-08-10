@@ -15,6 +15,7 @@ namespace _Project.Scripts.Manager
         [SerializeField] private GameScenes _previousLevel;
         
         private ISceneLoader _sceneLoader;
+        private IEventService _eventService;
         
         public void OnStart()
         {
@@ -30,6 +31,7 @@ namespace _Project.Scripts.Manager
         private void Initialize()
         {
             _sceneLoader = ServiceLocator.Get<ISceneLoader>();
+            _eventService = ServiceLocator.Get<IEventService>();
         }
 
         private void SetupEvents()
@@ -46,6 +48,8 @@ namespace _Project.Scripts.Manager
 
         private void LevelCompleted(ref EventContext context, in OnLevelCompleted e)
         {
+            OnGameOver gameOver = new OnGameOver();
+            gameOver?.Invoke(_eventService);
             _sceneLoader.LoadScene(_nextLevel.ToString());
         }
 
@@ -57,6 +61,8 @@ namespace _Project.Scripts.Manager
         private async UniTask GameOverASync()
         {
             await UniTask.Delay(2000);
+            OnGameOver gameOver = new OnGameOver();
+            gameOver?.Invoke(_eventService);
             _sceneLoader.LoadScene(_previousLevel.ToString());
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using _Project.Scripts.Enums;
 using _Project.Scripts.Events;
+using _Project.Scripts.Manager;
 using Coimbra.Services.Events;
 using UnityEngine;
 using TMPro;
@@ -9,6 +10,7 @@ namespace _Project.Scripts.UI
 {
 	public class GameHUD : MonoBehaviour
 	{
+		[SerializeField] private ScoreManager _scoreManager;
 		[SerializeField] private TextMeshProUGUI _playerActionText;
 		[SerializeField] private TextMeshProUGUI _scoreText;
 		
@@ -27,13 +29,13 @@ namespace _Project.Scripts.UI
 		private void SetupEvents()
 		{
 			OnChangePlayerState.AddListener(PlayerActionChanged);
-			OnUpdateScore.AddListener(UpdateScore);
+			_scoreManager.OnUpdateScore += UpdateScore;
 		}
 
 		private void DestroyEvents()
 		{
 			OnChangePlayerState.RemoveAllListeners();
-			OnUpdateScore.RemoveAllListeners();
+			_scoreManager.OnUpdateScore -= UpdateScore;
 		}
 		
 		private void PlayerActionChanged(ref EventContext context, in OnChangePlayerState e)
@@ -52,9 +54,9 @@ namespace _Project.Scripts.UI
 			}
 		}
 
-		private void UpdateScore(ref EventContext context, in OnUpdateScore e)
+		private void UpdateScore(int score)
 		{
-			_scoreText.text = e.Score.ToString();
+			_scoreText.text = score.ToString();
 		}
 	}
 }

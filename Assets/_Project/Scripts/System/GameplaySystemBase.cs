@@ -7,6 +7,7 @@ namespace _Project.Scripts.System
 	{
 		[SerializeField] private InputManager _inputManager;
 		[SerializeField] private GameManager _gameManager;
+		[SerializeField] private ScoreManager _scoreManager;
 		[SerializeField] private LevelFinishTrigger _levelFinishTrigger;
 		[SerializeField] private Player _player;
 		
@@ -16,6 +17,7 @@ namespace _Project.Scripts.System
 			_player.OnStart();
 			_gameManager.OnStart();
 			_levelFinishTrigger.OnStart();
+			_scoreManager.OnStart();
 			Cursor.lockState = CursorLockMode.Locked;
 		}
 
