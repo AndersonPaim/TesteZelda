@@ -1,6 +1,8 @@
 using System;
 using _Project.Scripts.Enums;
 using _Project.Scripts.Events;
+using _Project.Scripts.Interfaces;
+using Coimbra.Services;
 using Coimbra.Services.Events;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -12,14 +14,22 @@ namespace _Project.Scripts.Manager
         [SerializeField] private GameScenes _nextLevel;
         [SerializeField] private GameScenes _previousLevel;
         
+        private ISceneLoader _sceneLoader;
+        
         public void OnStart()
         {
             SetupEvents();
+            Initialize();
         }
 
         private void OnDestroy()
         {
             DestroyEvents();
+        }
+
+        private void Initialize()
+        {
+            _sceneLoader = ServiceLocator.Get<ISceneLoader>();
         }
 
         private void SetupEvents()
@@ -36,7 +46,7 @@ namespace _Project.Scripts.Manager
 
         private void LevelCompleted(ref EventContext context, in OnLevelCompleted e)
         {
-            Debug.Log("WON");
+            _sceneLoader.LoadScene(_nextLevel.ToString());
         }
 
         private void EnemyAlerted(ref EventContext context, in OnAlertEnemy e)
@@ -46,8 +56,8 @@ namespace _Project.Scripts.Manager
 
         private async UniTask GameOverASync()
         {
-            Debug.Log("LOST");
             await UniTask.Delay(2000);
+            _sceneLoader.LoadScene(_previousLevel.ToString());
         }
     }
 }
