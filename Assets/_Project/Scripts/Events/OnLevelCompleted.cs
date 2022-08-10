@@ -3,8 +3,8 @@ using Coimbra.Services.Events;
 
 namespace _Project.Scripts.Events
 {
-	public sealed partial class OnChangePlayerState : IEvent
+	public sealed partial class OnLevelCompleted : IEvent
 	{
-		public PlayerState State;
+
 	}
 }
