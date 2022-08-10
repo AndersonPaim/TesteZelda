@@ -1,4 +1,5 @@
-﻿using _Project.Scripts.Events;
+﻿using System;
+using _Project.Scripts.Events;
 using Coimbra.Services.Events;
 using UnityEngine;
 using TMPro;
@@ -8,6 +9,7 @@ namespace _Project.Scripts.UI
 	public class GameHUD : MonoBehaviour
 	{
 		[SerializeField] private TextMeshProUGUI _playerActionText;
+		[SerializeField] private TextMeshProUGUI _scoreText;
 		
 		private IEventService _eventService;
 
@@ -16,9 +18,21 @@ namespace _Project.Scripts.UI
 			SetupEvents();
 		}
 
+		private void OnDestroy()
+		{
+			DestroyEvents();
+		}
+
 		private void SetupEvents()
 		{
 			OnChangePlayerState.AddListener(PlayerActionChanged);
+			OnUpdateScore.AddListener(UpdateScore);
+		}
+
+		private void DestroyEvents()
+		{
+			OnChangePlayerState.RemoveAllListeners();
+			OnUpdateScore.RemoveAllListeners();
 		}
 		
 		private void PlayerActionChanged(ref EventContext context, in OnChangePlayerState e)
@@ -35,6 +49,11 @@ namespace _Project.Scripts.UI
 					_playerActionText.text = "";
 					break;
 			}
+		}
+
+		private void UpdateScore(ref EventContext context, in OnUpdateScore e)
+		{
+			_scoreText.text = e.Score.ToString();
 		}
 	}
 }

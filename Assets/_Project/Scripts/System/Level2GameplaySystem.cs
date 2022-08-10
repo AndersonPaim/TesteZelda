@@ -8,7 +8,8 @@ namespace _Project.Scripts.System
 		[SerializeField] private CameraManager _cameraManager;
 		[SerializeField] private EnemiesManager _enemiesManager;
 		[SerializeField] private CollectablesManager _collectablesManager;
-
+		[SerializeField] private ScoreManager _scoreManager;
+		
 		private void Awake()
 		{
 			_enemiesManager.OnAwake();
@@ -19,6 +20,7 @@ namespace _Project.Scripts.System
 			base.Start();
 			_cameraManager.OnStart();
 			_collectablesManager.OnStart();
+			_scoreManager.OnStart();
 		}
 
 		protected override void Update()

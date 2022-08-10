@@ -1,5 +1,8 @@
 using System;
+using _Project.Scripts.Events;
 using Coimbra;
+using Coimbra.Services;
+using Coimbra.Services.Events;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -7,10 +10,11 @@ namespace _Project.Scripts.Collectables
 {
     public class Collectable : MonoBehaviour
     {
-        [SerializeField] private float _coinsAmount;
+        [SerializeField] private int _scoreAmount;
         [SerializeField] private float _destroyDelay;
         private Collider _collider;
         private Animator _animator;
+        private IEventService _eventService;
         
         public void OnStart()
         {
@@ -19,6 +23,7 @@ namespace _Project.Scripts.Collectables
 
         private void Initialize()
         {
+            _eventService = ServiceLocator.Get<IEventService>();
             _collider = GetComponent<Collider>();
             _animator = GetComponent<Animator>();
         }
@@ -27,8 +32,9 @@ namespace _Project.Scripts.Collectables
         {
             _animator.SetTrigger("Collect");
             _collider.enabled = false;
+            OnCollectGem collectGem = new OnCollectGem() { Score = _scoreAmount };
+            collectGem?.Invoke(_eventService);
             DestroyASync();
-            //TODO SAVE SCORE
         }
 
         private async UniTask DestroyASync()

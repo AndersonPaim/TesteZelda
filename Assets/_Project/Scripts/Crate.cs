@@ -1,3 +1,4 @@
+using System;
 using _Project.Scripts.Events;
 using Coimbra.Services.Events;
 using UnityEditor.SceneManagement;
@@ -21,9 +22,19 @@ namespace _Project.Scripts
             GroundCheck();
         }
 
+        private void OnDestroy()
+        {
+            DestroyEvents();
+        }
+
         private void SetupEvents()
         {
             OnGrab.AddListener(Grab);
+        }
+
+        private void DestroyEvents()
+        {
+            OnGrab.RemoveAllListeners();
         }
         
         private void GroundCheck()
