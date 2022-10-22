@@ -12,7 +12,7 @@ namespace _Project.Scripts
         [SerializeField] private Animator _animator;
         [SerializeField] private PlayerBalancer _playerBalancer;
         [SerializeField] private Transform _walkDirection;
-        
+
         private Rigidbody _rb;
         private PlayerState _playerState = PlayerState.NONE;
         private CapsuleCollider _collider;
@@ -30,7 +30,7 @@ namespace _Project.Scripts
         {
             GroundCheck();
         }
-        
+
         public void Move(Vector2 moveDirection)
         {
             if (_isGrabbing)
@@ -42,7 +42,7 @@ namespace _Project.Scripts
                 PlayerMovement(moveDirection);
             }
         }
-        
+
         public void Jump()
         {
             if (_isGrounded)
@@ -51,7 +51,7 @@ namespace _Project.Scripts
                 _rb.AddForce(Vector3.up * _playerBalancer.JumpForce, ForceMode.Impulse);
             }
         }
-        
+
         public void Crouch(bool isCrouching)
         {
             if (isCrouching && !_isGrabbing)
@@ -68,10 +68,10 @@ namespace _Project.Scripts
                 _collider.center = Vector3.zero;
                 _collider.height = 2f;
             }
-            
+
             _animator.SetBool("IsCrouching", isCrouching);
         }
-        
+
         public void StartGrabbing()
         {
             ChangePlayerState(PlayerState.GRAB);
@@ -80,7 +80,7 @@ namespace _Project.Scripts
             _isGrabbing = true;
             _animator.SetBool("IsPushing", true);
         }
-        
+
         public void StopGrabbing()
         {
             ChangePlayerState(PlayerState.NONE);
@@ -108,12 +108,12 @@ namespace _Project.Scripts
                 _animator.SetBool("IsMoving", false);
                 return;
             }
-            
+
             _animator.SetBool("IsMoving", true);
             float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.y) * Mathf.Rad2Deg + _walkDirection.eulerAngles.y;
             targetAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _playerBalancer.TurnVelocity, 0.05f);
             transform.rotation = Quaternion.Euler(0, targetAngle, 0);
-                
+
             direction = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
             direction *= _moveSpeed;
             direction.y = _rb.velocity.y;
@@ -131,7 +131,7 @@ namespace _Project.Scripts
             Vector3 movementDir = (dir * direction + right * 0);
             _rb.velocity = movementDir;
         }
-        
+
         private void GroundCheck()
         {
             _isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.3f);
