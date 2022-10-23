@@ -19,6 +19,7 @@ namespace _Project.Scripts
         private IEventService _eventService;
         private bool _isGrounded = true;
         private bool _isGrabbing = false;
+        private bool _isSwimming = false;
         private float _moveSpeed;
 
         public void OnStart()
@@ -88,6 +89,21 @@ namespace _Project.Scripts
             _moveSpeed = _playerBalancer.MoveSpeed;
             _isGrabbing = false;
             _animator.SetBool("IsPushing", false);
+        }
+
+        public void StartSwimming()
+        {
+            _isSwimming = true;
+            _rb.useGravity = false;
+            _animator.SetTrigger("StartSwimming");
+            _animator.SetBool("IsSwimming", true);
+        }
+
+        public void StopSwimming()
+        {
+            _isSwimming = false;
+            _rb.useGravity = true;
+            _animator.SetBool("IsSwimming", false);
         }
 
         private void Initialize()
